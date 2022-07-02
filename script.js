@@ -1,26 +1,34 @@
 // Write your JavaScript code here!
+window.addEventListener("load", async function () {
+  // 1. fetch all planets from link. all planets are a list of Planet objects
+  let listedPlanets = await myFetch();
 
-window.addEventListener("load", function () {
+  // 2. use pickPlanet, which chooses a planet randomly and output ONE Planet object
+  let listedPlanetsResponse = pickPlanet(listedPlanets)
+
+  console.log(listedPlanetsResponse)
+
+  // 3. Using this planet object, we would have the needed metadata to put in addDestination
+  // 4 . Using the metadata as input for addDestination, we can now build the UI for the html
+  addDestinationInfo(
+    document,
+    listedPlanetsResponse.name,
+    listedPlanetsResponse.diameter,
+    listedPlanetsResponse.star,
+    listedPlanetsResponse.distance,
+    listedPlanetsResponse.moons,
+    listedPlanetsResponse.image
+  )
+  // 5. Build submit logic
   document.getElementById("formSubmit").addEventListener("click", function () {
-    let pilot = document.getElementById("pilotName")
-    let copilot = document.getElementById("copilotName")
-    let fuelLevel = document.getElementById("fuelLevel")
-    let cargoMass = document.getElementById("cargoMass")
-    let submit = document.getElementById("formSubmit")
-    let launchStatus=document.getElementById("launchStatus")
-    
+    let pilot = document.getElementById("pilotName");
+    let copilot = document.getElementById("copilotName");
+    let fuelLevel = document.getElementById("fuelLevel");
+    let cargoMass = document.getElementById("cargoMass");
+    let submit = document.getElementById("formSubmit");
+    let launchStatus = document.getElementById("launchStatus");
+
     formSubmission(document, pilot, copilot, fuelLevel, cargoMass);
+    
   });
-  let listedPlanets;
-  // Set listedPlanetsResponse equal to the value returned by calling myFetch()
-  let listedPlanetsResponse;
-  listedPlanetsResponse
-    .then(function (result) {
-      listedPlanets = result;
-      console.log(listedPlanets);
-    })
-    .then(function () {
-      console.log(listedPlanets);
-      // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
-    });
 });
